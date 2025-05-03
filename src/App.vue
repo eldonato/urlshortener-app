@@ -10,8 +10,8 @@
       </v-app-bar>
       
       
-      <v-main>
-        <v-container class="fill-height bg-blue">
+      <v-main class="bg-blue">
+        <v-container class="fill-height">
           <RouterView />
         </v-container>
       </v-main>

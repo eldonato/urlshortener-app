@@ -1,7 +1,7 @@
 <template>
   <v-container class="d-flex fill-height justify-center align-center">
     <v-form @submit.prevent="handleSubmit">
-      <v-card class="pa-5 rounded-xl" width="90vw">
+      <v-card class="pa-5 rounded-xl" max-width="50vw">
         
         <v-card-title>
           <v-row class="align-center justify-start">
@@ -19,7 +19,7 @@
             placeholder="http://exemplo.com/link-muito-grande"
             clearable
             @blur="onBlur"
-            :rules="[(v) => regraFormatoUrl2(v)]"
+            :rules="[(v) => regraFormatoUrl(v)]"
           ></v-text-field>
         </v-card-text>
         
@@ -47,8 +47,8 @@ const urlOriginal = ref('')
 const urlCurta = ref('')
 
 async function handleSubmit() {
-  const urlNormalizada = normalizarUrl(urlOriginal.value)
-  urlCurta.value = await encurtarUrl(urlNormalizada);
+  urlOriginal.value = normalizarUrl(urlOriginal.value)
+  urlCurta.value = await encurtarUrl(urlOriginal.value);
 }
 
 function normalizarUrl(url: string) {
@@ -63,15 +63,13 @@ function normalizarUrl(url: string) {
   return url
 }
 
-function regraFormatoUrl2(url: string): ValidationResult {
+function regraFormatoUrl(url: string): ValidationResult {
   if (!url) return true;
   const urlNormalizada = normalizarUrl(url);
   const mensagemErro = "Infrome uma URL válida, como: exemplo.com/ex"
 
   try {
     const url = new URL(urlNormalizada)
-    console.log('passou url', url);
-    
     return url.protocol === "http:" || url.protocol === "https:" || mensagemErro;
   } catch {
     return mensagemErro;
