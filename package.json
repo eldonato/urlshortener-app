@@ -1,8 +1,9 @@
 {
   "name": "urlshortener-app",
-  "private": true,
   "type": "module",
   "version": "0.0.0",
+  "private": true,
+  "packageManager": "pnpm@10.10.0+sha512.d615db246fe70f25dcfea6d8d73dee782ce23e2245e3c4f6f888249fb568149318637dca73c2c5c8ef2a4ca0d5657fb9567188bfab47f566d1ee6ce987815c39",
   "scripts": {
     "dev": "vite",
     "build": "run-p type-check \"build-only {@}\" --",
@@ -22,10 +23,12 @@
     "vuetify": "^3.8.1"
   },
   "devDependencies": {
+    "@antfu/eslint-config": "^4.13.0",
     "@tsconfig/node22": "^22.0.0",
     "@types/node": "^22.9.0",
     "@vitejs/plugin-vue": "^5.2.3",
     "@vue/tsconfig": "^0.7.0",
+    "eslint": "^9.26.0",
     "npm-run-all2": "^7.0.2",
     "sass-embedded": "^1.86.3",
     "typescript": "~5.8.2",
@@ -33,9 +36,6 @@
     "unplugin-vue-components": "^28.4.1",
     "vite": "^6.2.2",
     "vite-plugin-vuetify": "^2.1.1",
-    "vue-tsc": "^2.2.8",
-    "@antfu/eslint-config": "^4.13.0",
-    "eslint": "^9.26.0"
-  },
-  "packageManager": "pnpm@10.10.0+sha512.d615db246fe70f25dcfea6d8d73dee782ce23e2245e3c4f6f888249fb568149318637dca73c2c5c8ef2a4ca0d5657fb9567188bfab47f566d1ee6ce987815c39"
+    "vue-tsc": "^2.2.8"
+  }
 }
