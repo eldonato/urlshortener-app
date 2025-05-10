@@ -12,6 +12,8 @@ declare module 'vue' {
     RedirectLinkCurto: typeof import('./src/components/RedirectLinkCurto.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    ShortenedUrlDialog: typeof import('./src/components/ShortenedUrlDialog.vue')['default']
+    ShowUrlShortenedDialog: typeof import('./src/components/ShowUrlShortenedDialog.vue')['default']
     Teste: typeof import('./src/components/Teste.vue')['default']
   }
 }

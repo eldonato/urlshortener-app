@@ -2,18 +2,18 @@
   <v-container class="d-flex fill-height justify-center align-center">
     <v-form @submit.prevent="handleSubmit">
       <v-card class="pa-5 rounded-xl" max-width="50vw">
-        
+
         <v-card-title>
           <v-row class="align-center justify-start">
             <v-img src="@/assets/logo.svg" alt="Logo do Encurtador de URL" width="50px" max-width="50px">
             </v-img>
-            <h1 class="text-lg-h2 text-sm-h3 font-weight-bold text-wrap">Encurtador URL</h1>
+            <h1 class="text-lg-h2 text-sm-h4 font-weight-bold text-wrap">Encurtador URL</h1>
           </v-row>
         </v-card-title>
 
         <v-card-text class="pt-6">
           <v-text-field
-            v-model="urlOriginal"
+            v-model="originalUrl"
             label="Cole sua URL longa aqui"
             variant="outlined"
             placeholder="http://exemplo.com/link-muito-grande"
@@ -22,11 +22,14 @@
             :rules="[(v) => regraFormatoUrl(v)]"
           ></v-text-field>
         </v-card-text>
-        
+
         <v-card-actions class="justify-center">
           <v-btn
             color="primary"
-            :disabled="!urlOriginal"
+            :disabled="!originalUrl"
+            variant="tonal"
+            size="x-large"
+            :loading="loading"
             type="submit"
           >
             Encurtar URL
@@ -35,20 +38,38 @@
       </v-card>
     </v-form>
 
+    <ShortenedUrlDialog 
+      :dialog="showShortenedUrl"
+      :shortened-url="shortenedUrl"
+      @close="showShortenedUrl = false"
+    />
+    
   </v-container>
 </template>
 
 <script setup lang="ts">
 import { encurtarUrl } from '@/services/encurtar-url.service'
-import { ref } from 'vue'
+import { nextTick, ref } from 'vue'
 import type { ValidationResult } from 'vuetify/lib/composables/validation.mjs'
+import ShortenedUrlDialog from './ShowUrlShortenedDialog.vue'
 
-const urlOriginal = ref('')
-const urlCurta = ref('')
+const originalUrl = ref('')
+const shortenedUrl = ref('')
+const showShortenedUrl = ref(false)
+const loading = ref(false)
 
 async function handleSubmit() {
-  urlOriginal.value = normalizarUrl(urlOriginal.value)
-  urlCurta.value = await encurtarUrl(urlOriginal.value);
+  originalUrl.value = normalizarUrl(originalUrl.value)
+  loading.value = true
+  try {
+    shortenedUrl.value = await encurtarUrl(originalUrl.value)
+    showShortenedUrl.value = true;
+    nextTick(() => originalUrl.value = "")
+  } catch (error) {
+    console.log(error)
+  } finally {
+    loading.value = false
+  }
 }
 
 function normalizarUrl(url: string) {
@@ -74,10 +95,10 @@ function regraFormatoUrl(url: string): ValidationResult {
   } catch {
     return mensagemErro;
   }
-} 
+}
 
 function onBlur() {
-    urlOriginal.value = normalizarUrl(urlOriginal.value)
+    originalUrl.value = normalizarUrl(originalUrl.value)
 }
 
 </script>''
