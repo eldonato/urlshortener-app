@@ -13,6 +13,7 @@ const props = defineProps({
 })
 
 const emit = defineEmits(['close'])
+const showDialog = computed(() => props.dialog)
 const completeShortenedUrl = computed(formatUrl)
 const snackbar = ref(false)
 
@@ -33,7 +34,7 @@ function copyShortenedUrl() {
 
 <template>
   <v-dialog
-    v-model="props.dialog"
+    v-model="showDialog"
     width="auto"
   >
     <v-card

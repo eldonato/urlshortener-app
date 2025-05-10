@@ -6,12 +6,8 @@ import BaseLogo from './BaseLogo.vue'
 const props = defineProps({
   currentTheme: {
     type: String,
-    required: true,
     default() {
       return 'light'
-    },
-    validator(value: string, _) {
-      return ['light', 'dark'].includes(value)
     },
   },
 })

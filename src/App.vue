@@ -12,7 +12,7 @@ function alterarTema() {
   <v-responsive class="border rounded">
     <v-app :theme="theme">
       <BaseAppBar
-        current-theme="theme"
+        :current-theme="theme"
         @change-theme="alterarTema()"
       />
 

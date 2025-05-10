@@ -19,7 +19,7 @@ async function handleSubmit() {
     nextTick(() => originalUrl.value = '')
   }
   catch (error) {
-    console.log(error)
+    console.error(error)
   }
   finally {
     loading.value = false
