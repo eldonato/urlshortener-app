@@ -1,13 +1,12 @@
 <template>
   <v-container class="d-flex fill-height justify-center align-center">
     <v-form @submit.prevent="handleSubmit">
-      <v-card class="pa-5 rounded-xl" max-width="50vw">
+      <v-card class="pa-5 rounded-xl">
 
         <v-card-title>
           <v-row class="align-center justify-start">
-            <v-img src="@/assets/logo.svg" alt="Logo do Encurtador de URL" width="50px" max-width="50px">
-            </v-img>
-            <h1 class="text-lg-h2 text-sm-h4 font-weight-bold text-wrap">Encurtador URL</h1>
+            <BaseLogo />
+            <h1 class="pl-2 text-lg-h2 text-sm-h4 font-weight-bold text-wrap">Encurtador URL</h1>
           </v-row>
         </v-card-title>
 
@@ -52,6 +51,7 @@ import { encurtarUrl } from '@/services/encurtar-url.service'
 import { nextTick, ref } from 'vue'
 import type { ValidationResult } from 'vuetify/lib/composables/validation.mjs'
 import ShortenedUrlDialog from './ShowUrlShortenedDialog.vue'
+import BaseLogo from './BaseLogo.vue'
 
 const originalUrl = ref('')
 const shortenedUrl = ref('')
