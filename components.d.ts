@@ -8,15 +8,12 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
-    AppBar: typeof import('./src/components/AppBar.vue')['default']
     BaseAppBar: typeof import('./src/components/BaseAppBar.vue')['default']
     BaseLogo: typeof import('./src/components/BaseLogo.vue')['default']
     HomePage: typeof import('./src/components/HomePage.vue')['default']
     RedirectLinkCurto: typeof import('./src/components/RedirectLinkCurto.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
-    ShortenedUrlDialog: typeof import('./src/components/ShortenedUrlDialog.vue')['default']
     ShowUrlShortenedDialog: typeof import('./src/components/ShowUrlShortenedDialog.vue')['default']
-    Teste: typeof import('./src/components/Teste.vue')['default']
   }
 }
