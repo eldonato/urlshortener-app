@@ -14,20 +14,14 @@ const props = defineProps({
 
 const emit = defineEmits(['close'])
 const showDialog = computed(() => props.dialog)
-const completeShortenedUrl = computed(formatUrl)
 const snackbar = ref(false)
-
-function formatUrl() {
-  const baseDomain = import.meta.env.VITE_APP_BASE_URL.replace('http://', '').replace('https://', '')
-  return `${baseDomain}/${props.shortenedUrl}`
-}
 
 function fecharDialog() {
   emit('close')
 }
 
 function copyShortenedUrl() {
-  navigator.clipboard.writeText(completeShortenedUrl.value)
+  navigator.clipboard.writeText(props.shortenedUrl)
   snackbar.value = true
 }
 </script>
@@ -48,7 +42,7 @@ function copyShortenedUrl() {
       <template #text>
         <v-row>
           <v-col cols="12" class="d-flex justify-space-between border-md rounded-xl">
-            <span class="text-h6 text-blue">{{ completeShortenedUrl }}</span>
+            <span class="text-h6 text-blue">{{ props.shortenedUrl }}</span>
             <v-btn
               variant="plain"
               @click="copyShortenedUrl"
