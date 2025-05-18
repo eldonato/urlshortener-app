@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
+import { useDisplay } from 'vuetify'
 
 const props = defineProps({
   dialog: {
@@ -13,6 +14,7 @@ const props = defineProps({
 })
 
 const emit = defineEmits(['close'])
+const { smAndDown } = useDisplay()
 const showDialog = computed(() => props.dialog)
 const snackbar = ref(false)
 
@@ -29,37 +31,45 @@ function copyShortenedUrl() {
 <template>
   <v-dialog
     v-model="showDialog"
-    width="auto"
+    :fullscreen="smAndDown ? true : false"
   >
-    <v-card
-      width="70vw"
-      max-width="600"
-    >
-      <template #title>
-        <v-icon color="green" icon="mdi-check-circle-outline" />
-        <span class="pl-2">URL encurtada com sucesso!</span>
-      </template>
-      <template #text>
-        <v-row>
-          <v-col cols="12" class="d-flex justify-space-between border-md rounded-xl">
-            <span class="text-h6 text-blue">{{ props.shortenedUrl }}</span>
+    <div class="d-flex align-center justify-center fill-height px-5">
+      <v-card
+        class="mx-auto my-auto"
+        max-width="500"
+        width="100%"
+      >
+        <template #title>
+          <v-icon color="green" icon="mdi-check-circle-outline" />
+          <span class="pl-2">URL encurtada com sucesso!</span>
+        </template>
+        <template #text>
+          <v-row
+            class="d-flex border-md rounded-lg pa-3 my-2"
+            :class="{
+              'justify-center flex-column': smAndDown,
+              'justify-space-between': !smAndDown,
+            }"
+          >
+            <span class="text-blue" :class="{ 'text-h6': !smAndDown }">{{ props.shortenedUrl }}</span>
             <v-btn
-              variant="plain"
+              :class="{ 'mt-3': smAndDown }"
+              :variant="smAndDown ? 'tonal' : 'plain'"
               @click="copyShortenedUrl"
             >
               Copiar
             </v-btn>
-          </v-col>
-        </v-row>
-      </template>
-      <template #actions>
-        <v-btn
-          class="ms-auto"
-          text="Ok"
-          @click="fecharDialog"
-        />
-      </template>
-    </v-card>
+          </v-row>
+        </template>
+        <template #actions>
+          <v-btn
+            class="flex-grow-0 flex-shrink-0"
+            text="Ok"
+            @click="fecharDialog"
+          />
+        </template>
+      </v-card>
+    </div>
 
     <v-snackbar v-model="snackbar" timeout="2000" color="green">
       <span class="text-weight-bold text-h6">URL copiada com sucesso!</span>

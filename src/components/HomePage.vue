@@ -16,7 +16,7 @@ async function handleSubmit() {
   try {
     shortenedUrl.value = await encurtarUrl(originalUrl.value)
     showShortenedUrl.value = true
-    nextTick(() => originalUrl.value = '')
+    nextTick(() => originalUrl.value = shortenedUrl.value)
   }
   catch (error) {
     console.error(error)
@@ -66,7 +66,7 @@ function onBlur() {
         <v-card-title>
           <v-row class="align-center justify-start">
             <BaseLogo />
-            <h1 class="pl-2 text-lg-h2 text-sm-h4 font-weight-bold text-wrap">
+            <h1 class="pl-2 text-lg-h2 text-sm-h6 font-weight-bold text-wrap">
               Encurtador URL
             </h1>
           </v-row>
